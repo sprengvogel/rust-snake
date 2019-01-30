@@ -5,3 +5,4 @@ authors = ["Niklas Sprengel <niklas.sprengel@campus.tu-berlin.de>"]
 edition = "2018"
 
 [dependencies]
+piston_window = "0.87.0"
