@@ -1,6 +1,6 @@
 use crate::WINDOW_WIDTH;
 use crate::WINDOW_HEIGHT;
-use crate::game::{Block, Direction};
+use crate::game::*;
 use crate::drawer::*;
 use piston_window::*;
 use piston_window::types::Color;
@@ -79,7 +79,9 @@ impl Snake {
         self.blocks.insert(0, new_head);
     }
     pub fn set_direction(&mut self, direction: Direction) {
-        self.direction = direction;
+        if !Game::is_opposite_direction(&self.direction, &direction) {
+            self.direction = direction;
+        }
     }
     pub fn get_munchie(&self) -> &Block {
         &self.munchie
