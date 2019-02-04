@@ -16,6 +16,14 @@ pub fn draw_block(color: Color, x: f64, y: f64, con: &Context, g: &mut G2d) {
             BLOCK_SIZE, BLOCK_SIZE], con.transform, g);
 }
 
+pub fn draw_rectangle(color: Color, start_x: u16, start_y: u16, height: f64, width: f64, con: &Context, g: &mut G2d) {
+    let gui_start_x = to_gui_coord(start_x as f64);
+    let gui_start_y = to_gui_coord(start_y as f64);
+    rectangle(color, [gui_start_x, gui_start_y,
+            BLOCK_SIZE * height, BLOCK_SIZE * width], con.transform, g);
+
+}
+
 pub fn draw_small_square(color: Color, start_x: u16, start_y: u16, length: f64, con: &Context, g: &mut G2d) {
     //Center the square
     let start_x = start_x as f64 + (1.0-length)/2.0;

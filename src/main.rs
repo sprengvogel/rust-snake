@@ -8,6 +8,7 @@ mod drawer;
 use piston_window::*;
 use piston_window::types::Color;
 use crate::game::Game;
+use std::env;
 
 const BG_RED: f32 = 35.0;
 const BG_GREEN: f32 = 130.0;
@@ -22,12 +23,17 @@ const WINDOW_HEIGHT: u16 = 20;
 const BLOCK_SIZE: f64 = 25.0;
 
 fn main() {
+    let args: Vec<String> = env::args().collect();
     let mut window: PistonWindow = WindowSettings::new("Snake", (WINDOW_HEIGHT as f64 * BLOCK_SIZE, WINDOW_WIDTH as f64 * BLOCK_SIZE))
         .exit_on_esc(true)
         .build()
         .unwrap_or_else(|e| { panic!("Failed to build PistonWindow: {}", e) });
 
-    let mut game = Game::new();
+    let mut move_delay: u64 = 100;
+    if args.len() > 1 {
+        move_delay = args[1].parse().unwrap();
+    }
+    let mut game = Game::new(move_delay);
 
     while let Some(event) = window.next() {
 

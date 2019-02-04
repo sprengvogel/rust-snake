@@ -31,12 +31,9 @@ impl Snake {
     }
 
     ///Moves the snake one block while checking for collisions
-    pub fn move_snake(&mut self, munchie: &Block) -> bool{
+    pub fn move_snake(&mut self, munchie: &Block) -> (bool, bool){
         let new_head = self.compute_new_head();
         let game_over=self.check_self_collision(&new_head);
-        if game_over {
-            Game::game_over();
-        }
         let mut munchie_eaten=false;
         if new_head == *munchie {
             //If munchie is eaten, dont pop end to get bigger and generate new munchie
@@ -45,7 +42,7 @@ impl Snake {
             self.blocks.pop();
         }
         self.blocks.insert(0, new_head);
-        munchie_eaten
+        (game_over, munchie_eaten)
     }
 
     fn compute_new_head(&self) -> Block {
@@ -89,7 +86,7 @@ impl Snake {
             self.direction = direction;
         }
     }
-    
+
     pub fn check_self_collision(&self, block: &Block) -> bool{
         self.blocks.contains(block)
     }
