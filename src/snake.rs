@@ -22,7 +22,7 @@ impl Snake {
     pub fn new(x: u16, y: u16) -> Snake {
         Snake {
             blocks: vec!(Block{x:x, y:y},Block{x:x-1, y:y},Block{x:x-2, y:y}),
-            direction: Direction::Left,
+            direction: Direction::Right,
             munchie: Block{x:7, y:7}
         }
     }
@@ -68,6 +68,7 @@ impl Snake {
                 }
             }
         }
+        self.check_self_collision(&new_head);
         if new_head == self.munchie {
             //If munchie is eaten, dont pop end to get bigger and generate new munchie
             let munchie_x = rand::thread_rng().gen_range(0, WINDOW_WIDTH-1);
@@ -85,5 +86,10 @@ impl Snake {
     }
     pub fn get_munchie(&self) -> &Block {
         &self.munchie
+    }
+    fn check_self_collision(&self, new_head: &Block) {
+        if self.blocks.contains(new_head) {
+            Game::game_over();
+        }
     }
 }

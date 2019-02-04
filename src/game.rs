@@ -45,6 +45,11 @@ impl Game {
     pub fn is_opposite_direction(dir1: &Direction, dir2: &Direction) -> bool {
         (*dir1==Direction::Left && *dir2==Direction::Right)||(*dir1==Direction::Right && *dir2==Direction::Left)||(*dir1==Direction::Up && *dir2==Direction::Down)||(*dir1==Direction::Down && *dir2==Direction::Up)
     }
+
+    pub fn game_over() {
+        println!("Game over!");
+        std::process::exit(0);
+    }
 }
 
 #[derive(PartialEq,Eq)]
